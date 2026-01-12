@@ -13,24 +13,6 @@ export function CtaSection({ buttonText, microcopy }: CtaSectionProps) {
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(Error: Here’s your opt-in form updated to post first name and email to the provided webhook, with inline success/error toasts and the existing thank-you redirect after a successful send.
-
-<dyad-write path="src/features/opt-in/components/CtaSection.tsx" description="Add webhook submission with toast feedback to opt-in form">
-import { useState } from 'react';
-import { Button } from '../../../shared/components/Button';
-import { useNavigate } from 'react-router-dom';
-
-interface CtaSectionProps {
-  buttonText: string;
-  microcopy: string;
-}
-
-type ToastType = 'success' | 'error';
-
-export function CtaSection({ buttonText, microcopy }: CtaSectionProps) {
-  const [firstName, setFirstName] = useState('');
-  const [email, setEmail] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
   const navigate = useNavigate();
 
@@ -57,7 +39,10 @@ export function CtaSection({ buttonText, microcopy }: CtaSectionProps) {
           message: 'Success! Check your email for your download.',
           type: 'success'
         });
-        navigate('/thank-you', { state: { firstName, email } });
+
+        setTimeout(() => {
+          navigate('/thank-you', { state: { firstName, email } });
+        }, 1500);
       })
       .catch(() => {
         setToast({
